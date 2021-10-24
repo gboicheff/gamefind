@@ -9,9 +9,11 @@ function serveLink(req, res) {
         else{
             const appIDs = gameList['gameAppIds']
             const userIDs = gameList['userIDs']
+            const categories = gameList['categories']
             const body = {
                 appIDs: appIDs,
-                userIDs: userIDs
+                userIDs: userIDs,
+                categories: categories
             }
             const resp = {
                 body: body

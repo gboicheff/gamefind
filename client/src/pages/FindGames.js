@@ -44,12 +44,14 @@ function FindGames() {
         selectFriends.forEach(friend => {
             friendIDs.push(friend['value'])
         })
+        friendIDs.push(id)
+        console.log(friendIDs)
         let categoryIDs = []
         selectCategories.forEach(category => {
             categoryIDs.push(category['value'])
         })
         if(friendIDs.length > 0) {
-            let url = "/api/steam/shared_multiplayer_games/" + id + "," + friendIDs.toString() + "/" + categoryIDs.toString()
+            let url = "/api/steam/shared_multiplayer_games/" + friendIDs.join(",") + "/" + categoryIDs.join(",")
             axios.get(url).then(response => {
                 setKey(response.data.key)
             }).catch(error => {

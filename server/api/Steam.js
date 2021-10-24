@@ -1,4 +1,4 @@
-const {Categories, SharedGames, Link, Friends, GamesInfo} = require('../controllers/Controller')
+const {Categories, SharedGames, Link, Friends, GamesInfo, PlayerInfo} = require('../controllers/Controller')
 
 const express = require('express');
 const router = express.Router()
@@ -12,5 +12,7 @@ router.get('/categories', Categories.getCategories)
 router.get('/game-list/:key', Link.serveLink)
 
 router.post('/gamesinfo', GamesInfo.getGamesInfo)
+
+router.post("/playerinfo", PlayerInfo.getPlayerInfo)
 
 module.exports = router 

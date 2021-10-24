@@ -3,5 +3,6 @@ module.exports = {
     SharedGames: require('./SharedGamesController'),
     GamesInfo: require('./GamesInfoController'),
     Link: require('./LinkController'),
-    Friends: require('./Friends')
+    PlayerInfo: require('./PlayerInfoController'),
+    Friends: require('./FriendsController')
 }

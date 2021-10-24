@@ -6,7 +6,7 @@ function IDInput() {
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="http://localhost:3000/find-games"><b>Shared Game Finder</b></Navbar.Brand>
+                <Navbar.Brand href="/find-games"><b>Shared Game Finder</b></Navbar.Brand>
                 <Nav>
                     <Nav.Link href="https://github.com/gboicheff"><Image src={GithubIcon} fluid/></Nav.Link>
                 </Nav>

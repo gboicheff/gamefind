@@ -115,50 +115,69 @@ async function getSharedGames(req, res) {
 
     responses = await Promise.allSettled(promises)
 
-    responses = responses.filter(promise => promise.status === "fulfilled") //handle failed promises
-    responses.forEach(response => {
-        response = response.value
-        let games = response.data["response"]["games"].map(game => game["appid"])
-        games.forEach(game => {
-            if(game in owned_games) {
-                owned_games[game]+=1
+    let privateCheck = true
+    let privateSteamIDs = []
+    responses.forEach((response, index) => {
+        const currentCheck = Object.keys(response.value.data["response"]).length !== 0
+        privateCheck = privateCheck && currentCheck
+        if(!currentCheck){
+            privateSteamIDs.push(steamIDs[index])
+        }
+    })
+
+
+
+    if(privateCheck){
+        // responses = responses.filter(promise => promise.status === "fulfilled") //handle failed promises
+        responses.forEach(response => {
+            response = response.value
+            let games = response.data["response"]["games"].map(game => game["appid"])
+            games.forEach(game => {
+                if(game in owned_games) {
+                    owned_games[game]+=1
+                }
+                else {
+                    owned_games[game] = 1
+                }
+            })
+        })
+
+
+        for (const [key, value] of Object.entries(owned_games)) {
+            if(value === steamIDs.length) {
+                shared_games.push(key)
             }
-            else {
-                owned_games[game] = 1
+        }
+
+        games = await getGames(shared_games)
+
+
+        games.forEach(async(response, index) => {
+            const game = response.value
+            let categories = game['categories']
+            if(check_categories(categories, selected_categories)) {
+                multiplayer_games.push(game)
             }
         })
-    })
 
-
-    for (const [key, value] of Object.entries(owned_games)) {
-        if(value === steamIDs.length) {
-            shared_games.push(key)
+        const key = generate_key()
+        const ids = multiplayer_games.map(game => game['appId'])
+        const body = {
+            games: multiplayer_games,
+            userIDs: steamIDs
         }
-    }
-
-    games = await getGames(shared_games)
-
-
-    games.forEach(async(response, index) => {
-        const game = response.value
-        let categories = game['categories']
-        if(check_categories(categories, selected_categories)) {
-            multiplayer_games.push(game)
+        const fullResponse = {
+            body: body,
+            key: key
         }
-    })
-
-    const key = generate_key()
-    const ids = multiplayer_games.map(game => game['appId'])
-    const body = {
-        games: multiplayer_games,
-        userIDs: steamIDs
+        res.send(fullResponse)
+        await saveLink(key, ids, steamIDs, selected_categories)
+    } else {
+        const response = {
+            privateSteamIDs: privateSteamIDs
+        }
+        res.status(404).send(response)
     }
-    const fullResponse = {
-        body: body,
-        key: key
-    }
-    res.send(fullResponse)
-    await saveLink(key, ids, steamIDs, selected_categories)
 }
 
 exports.getSharedGames = getSharedGames;

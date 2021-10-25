@@ -12,6 +12,7 @@ function getPlayerInfo(req, res) {
             players.push({
                 value: user['steamid'],
                 icon: user['avatar'],
+                fullIcon: user['avatarfull'],
                 name: user['personaname'],
                 color: colors[index]
             })

@@ -40,13 +40,19 @@ function FindGames() {
     return (
         <div className="DisplayGames">
             <Container>
-                 <Row>
+                <Row className="justify-content-center" style={{marginTop: "10vh"}}>
+                    <h3><b>Games Owned by:</b></h3>
+                </Row>
+                 <Row className="justify-content-center">
                     {userInfo.map(info => {
-                        return <Col><Image src={info.icon} roundedCircle fluid></Image></Col>
+                        return <Col><Image src={info.fullIcon} roundedCircle fluid></Image><h5>{info.name}</h5></Col>
                     })}
                 </Row>
-                <Row className="justify-content-center">
-                    {selectedCategories.map(category => categories[category]).join(", ")}
+                <Row className="justify-content-center" style={{marginTop: "10vh"}}>
+                    <h3><b>Selected Categories:</b></h3>
+                </Row>
+                <Row className="justify-content-center" style={{marginBottom: "10vh"}}>
+                    <h4>{selectedCategories.map(category => categories[category]).join(", ")}</h4>
                 </Row>
                 {appIDs.length > 0 ? <GamesList appIDs={appIDs} userIDs={userIDs}/> : <NoListMsg/>}
             </Container>

@@ -6,6 +6,7 @@ function getFriends(req, res) {
     axios.get(url).then(response => {
         let friendIDs = response.data['friendslist']['friends'].map(friend => friend['steamid'])
         let url2 = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0001/?key=' + process.env.STEAM_API_KEY + '&steamids=' + friendIDs
+        console.log(url2)
         axios.get(url2).then(response2 => {
             let friends = []
             const colors = randomColor({count: response2.data['response']['players']['player'].length})

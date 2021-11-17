@@ -15,7 +15,7 @@ function FAQ() {
                 </Row>
                 <Row>
                     <Col style={{marginTop: "2vh", fontSize: "18px"}}>
-                        <p>Checkout the guide <a href="https://www.businessinsider.com/how-to-find-steam-id">here</a></p>
+                        <p>Check out the guide <a href="https://www.businessinsider.com/how-to-find-steam-id">here</a></p>
                     </Col>
                 </Row>
                 <Row>

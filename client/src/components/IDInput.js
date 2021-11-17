@@ -1,10 +1,17 @@
 import React, {useState} from 'react';
-import {Button, FormControl, InputGroup} from "react-bootstrap";
+import {Button, FormControl, InputGroup, OverlayTrigger, Tooltip} from "react-bootstrap";
 
 
 function IDInput(props) {
     const [formID, setFormID] = useState(0)
 
+
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          Simple tooltip
+        </Tooltip>
+      );
+      
     return (
         <div>
             <label htmlFor="basic-url"><h3>Enter your SteamID</h3></label>

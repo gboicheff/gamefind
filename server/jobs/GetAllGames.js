@@ -1,7 +1,7 @@
 const axios = require('axios');
-const models = require('../backend/models').models
-const connectDb = require('../backend/models').connectDb
-
+const models = require('../models').models
+const connectDb = require('../models').connectDb
+require("dotenv").config()
 async function getGameList(){
     var gameList = await axios.get("http://api.steampowered.com/ISteamApps/GetAppList/v0002/")
     return gameList.data.applist.apps
@@ -29,8 +29,7 @@ async function getGameSteam(appId) {
     console.log(url)
 
     let response = await axios.get(url)
-    if(response.data[appId.toString()].success) {
-
+    try{
         let categories = response.data[appId]['data']['categories']
         let genres = response.data[appId]['data']['genres']
         let name = response.data[appId]['data']['name']
@@ -46,7 +45,9 @@ async function getGameSteam(appId) {
         }
 
         return game
-
+    }
+    catch(error){
+        return null
     }
 
     return null
@@ -56,18 +57,18 @@ async function getGameSteam(appId) {
 async function main() {
     var gameList = await getGameList()
     connectDb().then(async() => {
-        for(let index = 0; index < gameList.length; index++){
+        for(let index = 110849; index >= 0; index--){
             var game = gameList[index]
             var steamInfo = await getGameSteam(game.appid)
             if(steamInfo){
                 console.log(steamInfo)
                 await saveGame(steamInfo)
                 console.log({index: index, success:true, appID: game.appid, name: steamInfo['name']})
-                await new Promise(resolve => setTimeout(resolve, 5000))
+                await new Promise(resolve => setTimeout(resolve, 4000))
             }
             else{
                 console.log({index: index, success:false, appID: game.appid})
-                await new Promise(resolve => setTimeout(resolve, 5000))
+                await new Promise(resolve => setTimeout(resolve, 4000))
             }
         }
     })

@@ -1,8 +1,13 @@
 import {Container, Row, Col, Image, Button} from "react-bootstrap";
-
+import {useEffect, useState} from "react";
 
 
 function Account(props) {
+    const [lists, setLists] = useState([])
+    useEffect(() =>{
+
+    }, [])
+    
     return (
         <div className="SteamAuth">
             {
@@ -18,11 +23,11 @@ function Account(props) {
                             <h1>{props.account.displayName}</h1>
                         </Col>
                     </Row>
-                    <Row className="fixed-bottom" style={{marginBottom: "2vh"}}>
+                    <Row style={{marginTop: "2vh"}}>
                         <Col>
-                            <Button variant="danger" href="/steam/logout">Logout</Button>
+                            <h3>Your lists:</h3>
                         </Col>
-                    </Row>                
+                    </Row>
                 </Container>
                 :
                 "Login to view your account"

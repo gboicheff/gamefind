@@ -44,6 +44,7 @@ let realm = process.env.NODE_ENV === 'production' ? "http://www.gamefind.io" : "
 app.use('/api/steam', steam)
 
 
+
 passport.use(new SteamStrategy({
     returnURL: returnURL,
     realm: realm,
@@ -69,9 +70,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.get('/', (req, res) => {
-    res.send(req.user);
-});
+// app.get('/', (req, res) => {
+//     res.send(req.user);
+// });
 app.get('/auth/steam', passport.authenticate('steam', {failureRedirect: '/'}), function (req, res) {
     res.redirect('/')
 });

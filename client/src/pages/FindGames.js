@@ -6,12 +6,14 @@ import CategoriesSelect from "../components/CategoriesSelect";
 import FriendsSelect from "../components/FriendsSelect";
 import ButtonMenu from "../components/ButtonMenu";
 
-function FindGames() {
+function FindGames(props) {
+
+    // const [friends, setFriends] = useState([])
+    // const [allFriends, setAllFriends] = useState([])
 
     const [friends, setFriends] = useState([])
-    const [allFriends, setAllFriends] = useState([])
+    const [selectedFriends, setSelectedFriends] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
-    const [steamID, setSteamID] = useState(0)
     const [listKey, setKey] = useState(null)
     const [alerts, setAlerts] = useState(null)
 
@@ -21,24 +23,20 @@ function FindGames() {
 
     useEffect(() =>{
         setAlerts(null)
-    }, [friends])
+        setFriends(formatFriends(props.friends))
 
-    function submitSteamID(newSteamID){
-        if(newSteamID > 0) {
-            axios.get('/api/steam/friends/' + newSteamID).then(response => {
-                let newFriends = response.data
-                newFriends.sort((a,b) => {
-                    if(a['name'] < b['name']){ return -1 }
-                    if(a['name'] > b['name']){ return 1 }
-                    return 0
-                })
-                newFriends.forEach(currentFriend => {
-                    currentFriend.label = <div><b>{currentFriend['name']}</b> <img src={currentFriend['icon']} alt="Icon cannot be displayed"/></div>
-                })
-                setAllFriends(newFriends)
-            }).catch(error => console.log(error))
-        }
-        setSteamID(newSteamID)
+    }, [props.friends])
+
+    function formatFriends(friends){
+        friends.sort((a,b) => {
+            if(a['name'] < b['name']){ return -1 }
+            if(a['name'] > b['name']){ return 1 }
+            return 0
+        })
+        friends.forEach(currentFriend => {
+            currentFriend.label = <div><b>{currentFriend['name']}</b> <img src={currentFriend['icon']} alt="Icon cannot be displayed"/></div>
+        })
+        return friends
     }
 
     function findSharedGames(id, selectFriends, selectCategories) {
@@ -75,16 +73,13 @@ function FindGames() {
         <div className="FindGames">
             <Container>
                 <Row style={sectionStyle}>
-                    <IDInput buttonFunc = {submitSteamID}/>
-                </Row>
-                <Row style={sectionStyle}>
-                    <FriendsSelect friends={friends} allFriends={allFriends} setFriends={setFriends}/>
+                    <FriendsSelect friends={selectedFriends} allFriends={friends} setFriends={setSelectedFriends}/>
                 </Row>
                 <Row style={sectionStyle}>
                     <CategoriesSelect selectedCategories = {selectedCategories} setSelectedCategories= {setSelectedCategories}/>
                 </Row >
                 
-                <ButtonMenu findSharedGames={() => findSharedGames(steamID, friends, selectedCategories)} listKey={listKey} friends={friends} selectedCategories={selectedCategories}/>
+                <ButtonMenu findSharedGames={() => findSharedGames(props.account.id, selectedFriends, selectedCategories)} listKey={listKey} friends={friends} selectedCategories={selectedCategories}/>
                 {alerts}
             </Container>
         </div>

@@ -4,13 +4,6 @@ import {Button, FormControl, InputGroup, OverlayTrigger, Tooltip} from "react-bo
 
 function IDInput(props) {
     const [formID, setFormID] = useState(0)
-
-
-    const renderTooltip = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-          Simple tooltip
-        </Tooltip>
-      );
       
     return (
         <div>

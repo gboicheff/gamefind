@@ -2,29 +2,32 @@ import { Container , Navbar, Nav, Image} from 'react-bootstrap';
 import {withRouter} from "react-router"
 import {NavLink} from "react-router-dom"
 import GithubIcon from "../imgs/GitHub-Mark-Light-32px.png"
-
+import SteamIcon from "../imgs/steam_login.png"
+import React, {useState, useEffect} from 'react';
 
 function NavBar(props) {
-
-    const textStyle = {
-        fontSize: "1.5rem"
-    }
-
     const imageStyle = {
         width: "32px",
         height: "32px"
     }
 
+    const navbarStyle = {
+        marginBottom: "10vh"
+    }
+
+
     return (
-        <div className="Nav">
-            <Navbar collapseOnSelect bg="dark" fixed="top" expand="sm" variant="dark">
+        <div className="Nav" style={navbarStyle}>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-                    <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-center">
-                        <Nav activeKey={props.location.pathname} style={textStyle}>
-                            <Nav.Link as={NavLink} to="/find-games"><b>Find</b></Nav.Link>
-                            <Nav.Link as={NavLink} to="/faq"><b>FAQ</b></Nav.Link>
-                            <Nav.Link href="https://github.com/gboicheff"><Image style={imageStyle} src={GithubIcon} fluid/></Nav.Link>
+                    <Navbar.Brand href="/find-games">gamefind</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav activeKey={props.location.pathname} className="me-auto">
+                        <Nav.Link href="https://github.com/gboicheff"><Image style={imageStyle} src={GithubIcon} fluid/></Nav.Link>
+                    </Nav>
+                        <Nav>
+                            {props.account ? <Nav.Link href="/account"><Image src={props.account.photos[0].value} fluid/></Nav.Link> : <Nav.Link href="/auth/steam"><Image src={SteamIcon} fluid/></Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

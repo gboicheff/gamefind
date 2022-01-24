@@ -1,4 +1,4 @@
-import { Container , Navbar, Nav, Image} from 'react-bootstrap';
+import { Container , Navbar, Nav, NavDropdown, Image} from 'react-bootstrap';
 import {withRouter} from "react-router"
 import {NavLink} from "react-router-dom"
 import GithubIcon from "../imgs/GitHub-Mark-Light-32px.png"
@@ -27,7 +27,16 @@ function NavBar(props) {
                         <Nav.Link href="https://github.com/gboicheff"><Image style={imageStyle} src={GithubIcon} fluid/></Nav.Link>
                     </Nav>
                         <Nav>
-                            {props.account ? <Nav.Link href="/account"><Image src={props.account.photos[0].value} fluid/></Nav.Link> : <Nav.Link href="/auth/steam"><Image src={SteamIcon} fluid/></Nav.Link>}
+                            {props.account 
+                            ? 
+                            // <Nav.Link href="/account"><Image src={props.account.photos[0].value} fluid/></Nav.Link>
+                            <NavDropdown title={<Image src={props.account.photos[0].value} fluid/>} id="collasible-nav-dropdown" menuVariant="dark">
+                                <NavDropdown.Item href="/account">Account</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="/steam/logout" style={{color: "red"}}>Logout</NavDropdown.Item>
+                            </NavDropdown>
+                            : 
+                            <Nav.Link href="/auth/steam"><Image src={SteamIcon} fluid/></Nav.Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

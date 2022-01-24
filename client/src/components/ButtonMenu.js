@@ -4,7 +4,7 @@ function ButtonMenu(props) {
     const sectionStyle = {
         marginTop: "12vh",
     }
-    const findGameButton = <Row style={sectionStyle}><Col xs={12}><Button style={{width: "100%"}} disabled={props.friends.length === 0 && props.selectedCategories.length === 0} onClick={props.findSharedGames} variant="primary"><h3>{"Find games"}</h3></Button></Col></Row>
+    const findGameButton = <Row style={sectionStyle}><Col xs={12}><Button style={{width: "100%"}} disabled={props.selectedFriends.length === 0 && props.selectedCategories.length === 0} onClick={props.findSharedGames} variant="primary"><h3>{"Find games"}</h3></Button></Col></Row>
     const getRefListButtons = !props.listKey ?  null : (
                             <Row style={sectionStyle}>
                                 <Col xs={10}>

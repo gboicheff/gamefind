@@ -7,10 +7,6 @@ import FriendsSelect from "../components/FriendsSelect";
 import ButtonMenu from "../components/ButtonMenu";
 
 function FindGames(props) {
-
-    // const [friends, setFriends] = useState([])
-    // const [allFriends, setAllFriends] = useState([])
-
     const [friends, setFriends] = useState([])
     const [selectedFriends, setSelectedFriends] = useState([])
     const [selectedCategories, setSelectedCategories] = useState([])
@@ -79,7 +75,7 @@ function FindGames(props) {
                     <CategoriesSelect selectedCategories = {selectedCategories} setSelectedCategories= {setSelectedCategories}/>
                 </Row >
                 
-                <ButtonMenu findSharedGames={() => findSharedGames(props.account.id, selectedFriends, selectedCategories)} listKey={listKey} friends={friends} selectedCategories={selectedCategories}/>
+                <ButtonMenu findSharedGames={() => findSharedGames(props.account.id, selectedFriends, selectedCategories)} listKey={listKey} selectedFriends={selectedFriends} selectedCategories={selectedCategories}/>
                 {alerts}
             </Container>
         </div>

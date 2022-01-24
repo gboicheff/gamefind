@@ -33,3 +33,4 @@ proxySetup.js
 
 
 /client/src/myID.txt
+client/src/setupProxy.js

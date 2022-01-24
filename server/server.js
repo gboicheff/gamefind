@@ -45,12 +45,6 @@ app.use('/api/steam', steam)
 
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/build')));
-
-    app.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-    });
-
     returnURL = "http://www.gamefind.io/steam/return"
     realm = "http://www.gamefind.io"
 }
@@ -115,6 +109,17 @@ app.get('/steam/games', async(req, res) => {
     console.log(response)
     res.json({id: req.user.id, games: response.data.response.games})
 });
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/build')));
+
+    app.get('*', function(req, res) {
+        res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    });
+
+    returnURL = "http://www.gamefind.io/steam/return"
+    realm = "http://www.gamefind.io"
+}
 
 connectDb().then(async () => {
     app.listen(port, () =>

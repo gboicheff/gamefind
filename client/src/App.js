@@ -15,6 +15,7 @@ function App() {
     useEffect(() =>{
         axios.get('/steam/account').then(res => {
             setAccount(res.data[0].user)
+            console.log(res.data[0].user)
             axios.get('/api/steam/friends/' + res.data[0].user.id).then(res => {
                 setFriends(res.data)
             }).catch(error => {

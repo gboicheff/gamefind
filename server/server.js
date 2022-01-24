@@ -34,8 +34,8 @@ passport.deserializeUser((user, done) => {
 });
 
 // Initiate Strategy
-let returnURL = "http://localhost:3000/steam/return"
-let realm = "http://localhost:3000"
+let returnURL = process.env.NODE_ENV === 'production' ? "http://www.gamefind.io/steam/return" : "http://localhost:3000/steam/return"
+let realm = process.env.NODE_ENV === 'production' ? "http://www.gamefind.io" : "http://localhost:3000"
 
 
 
@@ -43,11 +43,6 @@ let realm = "http://localhost:3000"
 
 app.use('/api/steam', steam)
 
-
-if (process.env.NODE_ENV === 'production') {
-    returnURL = "http://www.gamefind.io/steam/return"
-    realm = "http://www.gamefind.io"
-}
 
 passport.use(new SteamStrategy({
     returnURL: returnURL,

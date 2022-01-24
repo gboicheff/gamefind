@@ -51,8 +51,8 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
     });
 
-    returnURL = "/steam/return"
-    realm = "/"
+    returnURL = "http://www.gamefind.io/steam/return"
+    realm = "http://www.gamefind.io"
 }
 
 passport.use(new SteamStrategy({

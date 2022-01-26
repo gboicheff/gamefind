@@ -70,9 +70,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// app.get('/', (req, res) => {
-//     res.send(req.user);
-// });
 app.get('/auth/steam', passport.authenticate('steam', {failureRedirect: '/'}), function (req, res) {
     res.redirect('/')
 });
@@ -99,10 +96,8 @@ app.get("/steam/logout", function(req, res) {
   });
 
 app.get('/steam/games', async(req, res) => {
-    console.log(req.user)
     let url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=' + process.env.STEAM_API_KEY + '&steamid=' + req.user.id + '&format=json'
     response = await axios.get(url)
-    console.log(response)
     res.json({id: req.user.id, games: response.data.response.games})
 });
 

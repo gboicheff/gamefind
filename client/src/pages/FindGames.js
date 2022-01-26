@@ -67,17 +67,23 @@ function FindGames(props) {
 
     return (
         <div className="FindGames">
-            <Container>
-                <Row style={sectionStyle}>
-                    <FriendsSelect friends={selectedFriends} allFriends={friends} setFriends={setSelectedFriends}/>
-                </Row>
-                <Row style={sectionStyle}>
-                    <CategoriesSelect selectedCategories = {selectedCategories} setSelectedCategories= {setSelectedCategories}/>
-                </Row >
-                
-                <ButtonMenu findSharedGames={() => findSharedGames(props.account.id, selectedFriends, selectedCategories)} listKey={listKey} selectedFriends={selectedFriends} selectedCategories={selectedCategories}/>
-                {alerts}
-            </Container>
+            {
+                props.account 
+                ?
+                <Container>
+                    <Row style={sectionStyle}>
+                        <FriendsSelect friends={selectedFriends} allFriends={friends} setFriends={setSelectedFriends}/>
+                    </Row>
+                    <Row style={sectionStyle}>
+                        <CategoriesSelect selectedCategories = {selectedCategories} setSelectedCategories= {setSelectedCategories}/>
+                    </Row >
+                    
+                    <ButtonMenu findSharedGames={() => findSharedGames(props.account.id, selectedFriends, selectedCategories)} listKey={listKey} selectedFriends={selectedFriends} selectedCategories={selectedCategories}/>
+                    {alerts}
+                </Container>
+                :
+                <h1>Please login with steam to use this website</h1>
+            }
         </div>
     );
 }

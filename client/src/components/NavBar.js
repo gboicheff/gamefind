@@ -30,7 +30,7 @@ function NavBar(props) {
                             {props.account 
                             ? 
                             // <Nav.Link href="/account"><Image src={props.account.photos[0].value} fluid/></Nav.Link>
-                            <NavDropdown title={<Image src={props.account.photos[0].value} fluid roundedCircle/>} id="collasible-nav-dropdown" menuVariant="dark">
+                            <NavDropdown title={<Image src={props.account.photos[0].value} fluid roundedCircle/>} id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="/account">Account</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/steam/logout" style={{color: "red"}}>Logout</NavDropdown.Item>

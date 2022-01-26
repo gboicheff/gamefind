@@ -74,7 +74,6 @@ function formatCategories(categories) {
 function CategoriesSelect(props) {
 
     const handleChange = (e) => {
-        console.log(e)
         props.setSelectedCategories(Array.isArray(e) ? e.map(x => x) : [])
     }
 

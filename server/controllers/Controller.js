@@ -4,5 +4,6 @@ module.exports = {
     GamesInfo: require('./GamesInfoController'),
     Link: require('./LinkController'),
     PlayerInfo: require('./PlayerInfoController'),
-    Friends: require('./FriendsController')
+    Friends: require('./FriendsController'),
+    GameList: require('./GameListController')
 }

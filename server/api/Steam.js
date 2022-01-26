@@ -1,4 +1,4 @@
-const {Categories, SharedGames, Link, Friends, GamesInfo, PlayerInfo} = require('../controllers/Controller')
+const {Categories, SharedGames, Link, Friends, GamesInfo, PlayerInfo, GameList} = require('../controllers/Controller')
 
 const express = require('express');
 const router = express.Router()
@@ -10,6 +10,8 @@ router.get('/shared_multiplayer_games/:steamIDs/:categories', SharedGames.getSha
 router.get('/categories', Categories.getCategories)
 
 router.get('/game-list/:key', Link.serveLink)
+
+router.get("/game-lists/:createdBy", GameList.getGameLists)
 
 router.post('/gamesinfo', GamesInfo.getGamesInfo)
 

@@ -26,7 +26,6 @@ function saveGame(game) {
 
 async function getGameSteam(appId) {
     let url = 'https://store.steampowered.com/api/appdetails?appids=' + appId.toString()
-    console.log(url)
 
     let response = await axios.get(url)
     try{

@@ -11,13 +11,14 @@ function generate_key() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
-async function saveLink(key, games, IDs, categories) {
+async function saveLink(key, games, IDs, categories, createdBy) {
     const list = {
         key: key,
         gameAppIds: games,
         userIDs: IDs,
         categories: categories,
-        createdAt: new Date()
+        createdAt: new Date(),
+        createdBy: createdBy
     }
     const gameList = new models.GameList(list)
     await gameList.save()
@@ -100,6 +101,7 @@ async function getGames(appIDs) {
 async function getSharedGames(req, res) {
     let owned_games = {}
     let steamIDs = req.params.steamIDs.split(",")
+    const ownerID = steamIDs[steamIDs.length-1]
     let selected_categories = req.params.categories.split(",").map(x => parseInt(x))
     let promises = []
     let shared_games = []
@@ -171,7 +173,7 @@ async function getSharedGames(req, res) {
             key: key
         }
         res.send(fullResponse)
-        await saveLink(key, ids, steamIDs, selected_categories)
+        await saveLink(key, ids, steamIDs, selected_categories, ownerID)
     } else {
         const response = {
             privateSteamIDs: privateSteamIDs

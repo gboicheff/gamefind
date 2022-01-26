@@ -82,7 +82,7 @@ function FindGames(props) {
                     {alerts}
                 </Container>
                 :
-                <h1>Please login with steam to use this website</h1>
+                <h1>Please login with Steam to use this website</h1>
             }
         </div>
     );

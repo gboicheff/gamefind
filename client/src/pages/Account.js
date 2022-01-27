@@ -23,7 +23,7 @@ function Account(props) {
     // }
 
     return (
-        <div className="SteamAuth">
+        <div className="Account">
             {
                 props.account ? 
                 <Container>            
@@ -44,8 +44,9 @@ function Account(props) {
                     </Row>
                     {
                         lists.map(list => {
-                            <Row><a href={"www.gamefind.io/game-list/" + list.key}>{"www.gamefind.io/game-list/" + list.key}</a></Row>
+                            return <Row><a href={"http://www.gamefind.io/game-list/" + list.key} target="_blank">{"www.gamefind.io/game-list/" + list.key}</a></Row>
                         })
+                        
                     }
                 </Container>
                 :

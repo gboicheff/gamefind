@@ -53,10 +53,35 @@ async function getGameSteam(appId) {
 
 }
 
+async function fillGames(){
+    var gameList = await getGameList()
+    gameList = gameList.map(x => x.appid)
+    await connectDb()
+    var appIDs = await models.Game.find().select("appId")
+    appIDs = appIDs.map(x => x.appId)
+    let gamesToAdd = gameList.filter(x => !appIDs.includes(x))
+
+    // console.log(gameList[0])
+    // console.log(appIDs[0])
+    // console.log(gameList.length)
+    // console.log(appIDs.length)
+    // console.log(gamesToAdd.length)
+    for(let index = 0; index < gamesToAdd.length; index++){
+        var game = gamesToAdd[index]
+        var steamInfo = await getGameSteam(game)
+        if(steamInfo){
+            await saveGame(steamInfo)
+            console.log({index: index, success:true, appID: game, name: steamInfo['name']})
+            await new Promise(resolve => setTimeout(resolve, 4000))
+        }
+    }
+
+}
+
 async function main() {
     var gameList = await getGameList()
     connectDb().then(async() => {
-        for(let index = 110849; index >= 0; index--){
+        for(let index = 110696; index >= 0; index--){
             var game = gameList[index]
             var steamInfo = await getGameSteam(game.appid)
             if(steamInfo){
@@ -73,7 +98,9 @@ async function main() {
     })
     
 }
+
   
 if (require.main === module) {
-    main();
+    // main();
+    fillGames()
 }

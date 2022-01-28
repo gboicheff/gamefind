@@ -61,18 +61,16 @@ async function fillGames(){
     appIDs = appIDs.map(x => x.appId)
     let gamesToAdd = gameList.filter(x => !appIDs.includes(x))
 
-    // console.log(gameList[0])
-    // console.log(appIDs[0])
-    // console.log(gameList.length)
-    // console.log(appIDs.length)
-    // console.log(gamesToAdd.length)
+
+    
+    console.log("Games left to add: "  + gamesToAdd.length)
     for(let index = 0; index < gamesToAdd.length; index++){
         var game = gamesToAdd[index]
         var steamInfo = await getGameSteam(game)
         if(steamInfo){
             await saveGame(steamInfo)
             console.log({index: index, success:true, appID: game, name: steamInfo['name']})
-            await new Promise(resolve => setTimeout(resolve, 4000))
+            await new Promise(resolve => setTimeout(resolve, 5000))
         }
     }
 

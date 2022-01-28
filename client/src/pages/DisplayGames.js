@@ -41,7 +41,7 @@ function FindGames() {
         <div className="DisplayGames">
             <Container>
                 <Row className="justify-content-center" style={{marginTop: "10vh"}}>
-                    <h3><b>Games Owned by:</b></h3>
+                    <h2><b>Games Owned by:</b></h2>
                 </Row>
                  <Row className="justify-content-center">
                     {userInfo.map(info => {
@@ -49,7 +49,7 @@ function FindGames() {
                     })}
                 </Row>
                 <Row className="justify-content-center" style={{marginTop: "10vh"}}>
-                    <h3><b>Selected Categories:</b></h3>
+                    <h2><b>Selected Categories:</b></h2>
                 </Row>
                 <Row className="justify-content-center" style={{marginBottom: "10vh"}}>
                     <h4>{selectedCategories.map(category => categories[category]).join(", ")}</h4>
